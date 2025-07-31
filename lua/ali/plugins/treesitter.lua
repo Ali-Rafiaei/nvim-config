@@ -16,6 +16,15 @@ return {
       additional_vim_regex_highlighting = { 'ruby' },
     },
     indent = { enable = true, disable = { 'ruby' } },
+    -- incremental_selection = {
+    --   enable = true,
+    --   keymaps = {
+    --     init_selection = 'gss',
+    --     node_incremental = 'gsi',
+    --     scope_incremental = 'gsc',
+    --     node_decremental = 'gsd',
+    --   },
+    -- },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
     end,
