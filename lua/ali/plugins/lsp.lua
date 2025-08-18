@@ -1,5 +1,6 @@
 -- Main LSP Configuration
-return {'neovim/nvim-lspconfig',
+return {
+  'neovim/nvim-lspconfig',
   dependencies = {
     -- Automatically install LSPs and related tools to stdpath for Neovim
     -- Mason must be loaded before its dependents so we need to set it up here.
@@ -146,6 +147,12 @@ return {'neovim/nvim-lspconfig',
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
         end
+
+        -- The following code attaches the nvim-navic plugin to the LSP client.
+        local navic_ok, navic = pcall(require, 'nvim-navic')
+        if navic_ok and client and client.server_capabilities.documentSymbolProvider then
+          navic.attach(client, event.buf)
+        end
       end,
     })
 
@@ -196,7 +203,9 @@ return {'neovim/nvim-lspconfig',
     local servers = {
       -- clangd = {},
       -- gopls = {},
-      -- pyright = {},
+      pyright = {
+        filetypes = { 'python' },
+      },
       -- rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
@@ -243,7 +252,7 @@ return {'neovim/nvim-lspconfig',
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
-      ensure_installed = { 'pyright' }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+      ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
       automatic_installation = false,
       handlers = {
         function(server_name)

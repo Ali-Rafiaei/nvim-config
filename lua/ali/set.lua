@@ -77,7 +77,7 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
-vim.opt.colorcolumn = '120'
+vim.opt.colorcolumn = '111' -- Highlight column 80
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -87,3 +87,5 @@ vim.opt.shiftwidth = 4
 -- vim.opt.expandtab = true -- Use spaces instead of tabs
 -- vim.opt.smartindent = true -- Smart autoindenting on new lines
 -- vim.opt.autoindent = true -- Copy indent from current line when starting a new one
+
+vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
