@@ -38,3 +38,8 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 vim.keymap.set('n', '<leader>pv', ':Ex<CR>', { desc = 'open NetRW in the current root' })
+
+-- Format file using Conform
+vim.keymap.set('n', '<leader>cf', function()
+  require('conform').format()
+end, { desc = 'Format file' })
