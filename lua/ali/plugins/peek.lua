@@ -1,3 +1,4 @@
+-- Peek.nvim: A markdown preview plugin for Neovim using Deno and a web browser.
 return {
     "toppair/peek.nvim",
     event = { "VeryLazy" },
