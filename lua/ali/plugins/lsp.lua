@@ -203,12 +203,32 @@ return {
     local servers = {
       -- clangd = {},
       -- gopls = {},
-      pyright = {
+      -- pyright = {
+      --   filetypes = { 'python' },
+      -- },
+      pylsp = {
         filetypes = { 'python' },
       },
-	  -- pylsp = {
-	  --  filetypes = { 'python' },
-	  -- },
+      texlab = {
+        filetypes = { 'tex', 'plaintex', 'bib' }, -- 'latex' is not a real filetype, 'bib' is useful to add
+        settings = {
+          texlab = {
+            build = {
+              executable = 'latexmk',
+              args = { '-pdf', '-interaction=nonstopmode', '-synctex=1', '%f' },
+              onSave = true,
+              forwardSearchAfter = true,
+            },
+            forwardSearch = {
+              executable = 'zathura',
+              args = { '--synctex-forward', '%l:1:%f', '%p' },
+            },
+            chktex = {
+              onOpenAndSave = true,
+            },
+          },
+        },
+      },
       -- rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
@@ -251,8 +271,8 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
-	  'isort', -- Used to sort imports in Python files
-	  'black', -- Used to format Python code
+      'isort', -- Used to sort imports in Python files
+      'black', -- Used to format Python code
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

@@ -3,6 +3,11 @@ return {
   opts = {},
   config = function()
     require('conform').setup {
+      formatters = {
+        stylua = {
+          prepend_args = { '--indent-type', 'Tabs', '--indent-width', '4' },
+        },
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform will run multiple formatters sequentially
